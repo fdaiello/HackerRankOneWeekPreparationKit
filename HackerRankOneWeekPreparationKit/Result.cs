@@ -121,5 +121,43 @@ namespace HackerRankOneWeekPreparationKit
 
             return hash.ToList();
         }
+        /*
+         *  Test Day Two
+         *  
+         *  Flipping the Matrix
+         *  2n Matrix - square
+         *  
+         *  https://www.hackerrank.com/test/4nahpm20m33/questions/di1dm3kpigj
+         *  
+         *  Flip rows or columns
+         *  Maximize sum at the upper left quadrant
+         *  
+         *  Trick: no need to really flip, just get max of every possible position
+         */
+        public static int flippingMatrix(List<List<int>> matrix)
+        {
+            // Sum return
+            int sRet = 0;
+
+            // Loop all left columns
+            for ( int column=0; column < matrix.Count / 2; column++)
+            {
+                // Loop all upper rows
+                for (int row = 0; row < matrix.Count/2; row++)
+                {
+                    // Get max of every simetric element in the 4 quadrants
+                    int e1 = matrix[column][row];
+                    int e2 = matrix[column][matrix.Count - row - 1];
+                    int e3 = matrix[matrix.Count - column - 1][row];
+                    int e4 = matrix[matrix.Count - column - 1][matrix.Count - row - 1];
+
+                    // Get max of 4 and acumulate
+                    sRet += Math.Max(e1, Math.Max(e2, Math.Max(e3, e4)));
+                }
+            }
+
+
+            return sRet;
+        }
     }
 }

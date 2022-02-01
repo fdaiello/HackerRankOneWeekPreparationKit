@@ -7,7 +7,31 @@ namespace HackerRankOneWeekPreparationKit
     {
         static void Main(string[] args)
         {
-            TestCountingSort();
+            TestFlippingMatrix();
+        }
+        static void TestFlippingMatrix()
+        {
+            List<List<int>> matrix = new()
+            {
+                new() { 1, 2 },
+                new() { 3, 4 }
+            };
+
+            Console.WriteLine(Result.flippingMatrix(matrix));
+            Console.WriteLine("Expected: 4");
+
+            matrix = new()
+            {
+                new() { 112, 42, 83, 119 },
+                new() { 56, 125, 56, 49 },
+                new() { 15, 78, 101, 43 },
+                new() { 62, 98, 114, 108 }
+            };
+
+
+            Console.WriteLine(Result.flippingMatrix(matrix));
+            Console.WriteLine("Expected: 414");
+
         }
         static void TestCountingSort()
         {
