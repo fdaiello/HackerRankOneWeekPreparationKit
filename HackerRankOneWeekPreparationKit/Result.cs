@@ -7,8 +7,61 @@ using System.Threading.Tasks;
 namespace HackerRankOneWeekPreparationKit
 {
     class Result
-
     {
+        /*
+         * https://www.hackerrank.com/challenges/one-week-preparation-kit-caesar-cipher-1
+         */
+        public static string caesarCipher(string s, int k)
+        {
+            int aCode = 'a';
+            int zCode = 'z';
+            int q = zCode - aCode + 1;
+            int delta = k % q;
+
+            int aCode2 = 'A';
+            int zCode2 = 'Z';
+
+            int shifted;
+
+            StringBuilder sb = new StringBuilder();
+
+            for ( int i = 0; i < s.Length; i++)
+            {
+                if ( s[i]>=aCode && s[i]<= zCode)
+                {
+                    shifted = s[i] + delta;
+                    if (shifted > zCode)
+                        shifted = shifted - zCode + aCode -1;
+                    sb.Append ((char)shifted);
+                }
+                else if (s[i] >= aCode2 && s[i] <= zCode2)
+                {
+                    shifted = s[i] + delta;
+                    if (shifted > zCode2)
+                        shifted = shifted - zCode2 + aCode2 - 1;
+                    sb.Append((char)shifted);
+                }
+                else
+                {
+                    sb.Append(s[i]);
+                }
+            }
+
+            return sb.ToString();
+        }
+        /*
+         * https://www.hackerrank.com/challenges/one-week-preparation-kit-tower-breakers-1
+         */
+        public static int towerBreakers(int n, int m)
+        {
+            if (m == 1)
+                return 2;
+            else if (n % 2 == 0)
+                return 2;
+            else
+                return 1;
+
+        }
         /*
          *  https://www.hackerrank.com/challenges/one-week-preparation-kit-plus-minus
          */

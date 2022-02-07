@@ -7,7 +7,23 @@ namespace HackerRankOneWeekPreparationKit
     {
         static void Main(string[] args)
         {
-            TestFlippingMatrix();
+            TestCeasarCipher();
+        }
+        static void TestCeasarCipher()
+        {
+            string s = "abcdefghi-----tuvwxyz----ABCDE---TUVWXTZ";
+            int k = 1;
+
+            Console.WriteLine(Result.caesarCipher(s, k));
+
+        }
+        static void TestTowerBreaker()
+        {
+            int n = 1;
+            int m = 4;
+
+            Console.WriteLine(Result.towerBreakers(n, m));
+            Console.WriteLine("Expected: 1");
         }
         static void TestFlippingMatrix()
         {
