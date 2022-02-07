@@ -7,7 +7,62 @@ namespace HackerRankOneWeekPreparationKit
     {
         static void Main(string[] args)
         {
-            TestCeasarCipher();
+            TestSuperDigit();
+        }
+        static void TestSuperDigit()
+        {
+            string n = "9875";
+            int k = 4;
+
+            Console.WriteLine(Result.superDigit(n, k));
+            Console.WriteLine("Expected: 8");
+        }
+        static void TestGridChallenge()
+        {
+            List<string> grid = new List<string> { "abc", "ade", "efg" };
+
+            Console.WriteLine(Result.gridChallenge(grid));
+            Console.WriteLine("Expected: YES");
+
+            grid = new List<string> { "abh", "ade", "efg" };
+
+            Console.WriteLine(Result.gridChallenge(grid));
+            Console.WriteLine("Expected: NO");
+
+            grid = new List<string> { "abc", "hjk", "mpq", "rtv" };
+            Console.WriteLine(Result.gridChallenge(grid));
+            Console.WriteLine("Expected: YES");
+
+            grid = new List<string> { "abc", "hjz", "mpq", "rtv" };
+            Console.WriteLine(Result.gridChallenge(grid));
+            Console.WriteLine("Expected: NO");
+
+        }
+        static void TestPalindromeIndex()
+        {
+            string s = "ASDFFDSAX";
+            Console.WriteLine(Result.palindromeIndex(s));
+            Console.WriteLine("Expected 8");
+
+            s = "aaaaaaaaaaaaaaaaaaaaaaraaaaaaaaaaaaataaaaa";
+            Console.WriteLine(Result.palindromeIndex(s));
+            Console.WriteLine("Expected -1");
+
+            s = "aaab";
+            Console.WriteLine(Result.palindromeIndex(s));
+            Console.WriteLine("Expected 3");
+
+            s = "baa";
+            Console.WriteLine(Result.palindromeIndex(s));
+            Console.WriteLine("Expected 0");
+
+            s = "aaa";
+            Console.WriteLine(Result.palindromeIndex(s));
+            Console.WriteLine("Expected -1");
+
+            s = "Felipe4epileF";
+            Console.WriteLine(Result.palindromeIndex(s));
+            Console.WriteLine("Expected -1");
         }
         static void TestCeasarCipher()
         {

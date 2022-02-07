@@ -9,6 +9,92 @@ namespace HackerRankOneWeekPreparationKit
     class Result
     {
         /*
+         * https://www.hackerrank.com/challenges/one-week-preparation-kit-recursive-digit-sum
+         */
+        public static int superDigit(string n, int k) { 
+
+            return SuperDigit0(n,k);
+
+        }
+        static int SuperDigit0(string n, int k)
+        {
+            if (n.Length == 1)
+                return Int32.Parse(n);
+            else
+            {
+                long sum = 0;
+                for ( int i =0; i < n.Length; i++)
+                {
+                    sum += Int32.Parse(n[i].ToString());
+                }
+                sum *= k;
+                return SuperDigit0(sum.ToString(),1);
+            }
+        }
+        /*
+         * https://www.hackerrank.com/challenges/one-week-preparation-kit-grid-challenge/problem
+         */
+        public static string gridChallenge(List<string> grid)
+        {
+            char[][] nGrid = new char[grid.Count][];
+
+            for (int i = 0; i < grid.Count; i++) {
+                nGrid[i] = grid[i].ToCharArray();
+                Array.Sort(nGrid[i]);
+            } 
+
+            for (int c=0; c < nGrid[0].Length; c++)
+            {
+                for ( int r=1; r<nGrid.Length; r++)
+                {
+                    if (nGrid[r][c] < nGrid[r - 1][c])
+                        return "NO";
+                }
+            }
+
+            return "YES";
+        }
+        /*
+         * https://www.hackerrank.com/test/crlnp8rgs12/questions/a2b68fq8p7b
+         */
+        public static int palindromeIndex(string s)
+        {
+            int p1 = 0;
+            int p2 = s.Length - 1;
+
+            int r = -1;
+
+            while ( p1<p2)
+            {
+                if (s[p1] == s[p2])
+                {
+                    p1++;
+                    p2--;
+                }
+                else
+                {
+                    if ( s[p1+1] == s[p2] && r == -1)
+                    {
+                        r = p1;
+                        p1++;
+                    }
+                    else if ( s[p1] == s[p2 - 1] && r==-1)
+                    {
+                        r = p2;
+                        p2--;
+                    }
+                    else
+                    {
+                        return -1;
+                    }
+                }
+            }
+
+            return r;
+
+        }
+
+        /*
          * https://www.hackerrank.com/challenges/one-week-preparation-kit-caesar-cipher-1
          */
         public static string caesarCipher(string s, int k)
