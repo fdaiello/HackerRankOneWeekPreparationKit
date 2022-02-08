@@ -7,7 +7,47 @@ namespace HackerRankOneWeekPreparationKit
     {
         static void Main(string[] args)
         {
-            TestSuperDigit();
+            TestMinimumBribes();
+        }
+        static void TestMinimumBribes()
+        {
+            List<int> q;
+
+            q = new List<int> { 3, 2, 1, 4, 5, 6, 7, 8 };
+            Result.minimumBribes(q);
+            Console.WriteLine("Expected: 3");
+
+            q = new List<int> { 1, 2, 5, 4, 3, 6, 7, 8 };
+            Result.minimumBribes(q);
+            Console.WriteLine("Expected: 3");
+
+            q = new List<int> { 1, 2, 5, 3, 7, 8, 6, 4 };
+            Result.minimumBribes(q);
+            Console.WriteLine("Expected: 7");
+
+            q = new List<int> { 1, 2, 5, 6, 3, 4, 7, 8 };
+            Result.minimumBribes(q);
+            Console.WriteLine("Expected: 4");
+
+            q = new List<int> { 1, 2, 5, 6, 3, 4, 7, 8 };
+            Result.minimumBribes(q);
+            Console.WriteLine("Expected: 4");
+
+            q = new List<int> { 1, 2, 5, 3, 4, 6, 7, 8 };
+            Result.minimumBribes(q);
+            Console.WriteLine("Expected: 2");
+
+            q = new List<int> { 1, 2, 3, 5, 4, 6, 7, 8 };
+            Result.minimumBribes(q);
+            Console.WriteLine("Expected: 1");
+
+            q = new List<int> { 1, 2, 5, 3, 4, 6, 7, 8 };
+            Result.minimumBribes(q);
+            Console.WriteLine("Expected: 2");
+
+            q = new List<int> { 1, 5, 2, 3, 4, 6, 7, 8 };
+            Result.minimumBribes(q);
+            Console.WriteLine("Expected: Too Chaotic");
         }
         static void TestSuperDigit()
         {

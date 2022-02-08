@@ -9,6 +9,73 @@ namespace HackerRankOneWeekPreparationKit
     class Result
     {
         /*
+         * https://www.hackerrank.com/challenges/one-week-preparation-kit-new-year-chaos/
+         */
+        public static void minimumBribes(List<int> q)
+        {
+            int bribes = 0;
+            int tmp;
+
+            for (int i = 0; i < q.Count; i++)
+            {
+                if (q[i] - i - 1 > 2)
+                {
+                    Console.WriteLine("Too chaotic");
+                    return;
+                }
+            }
+
+            bool swapped;
+            do
+            {
+                swapped = false;
+                for ( int i = 0; i<q.Count-1; i++)
+                {
+                    if (q[i] > q[i + 1])
+                    {
+                        bribes++;
+                        swapped = true;
+                        tmp = q[i];
+                        q[i] = q[i + 1];
+                        q[i + 1] = tmp;
+                    }
+                }
+
+
+            } while (swapped);
+
+            Console.WriteLine(bribes);
+
+
+        }
+        public static void minimumBribes0(List<int> q)
+        {
+            int bribes = 0;
+            int bribers = 0;
+            
+            for ( int i =0; i< q.Count; i++)
+            {
+                if ( q[i] - i  -1 > 2)
+                {
+                    Console.WriteLine("Too chaotic");
+                    return;
+                }
+                else if (q[i] - i - 1 > 0)
+                {
+                    bribes += q[i] - i - 1;
+                    bribers += 1;
+                }
+                else if ( bribers > 0)
+                {
+                    bribers = 0;
+                }
+
+            }
+
+            Console.WriteLine(bribes);
+
+        }
+        /*
          * https://www.hackerrank.com/challenges/one-week-preparation-kit-recursive-digit-sum
          */
         public static int superDigit(string n, int k) { 
