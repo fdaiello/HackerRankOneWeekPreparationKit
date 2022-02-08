@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace HackerRankOneWeekPreparationKit
 {
@@ -7,7 +8,29 @@ namespace HackerRankOneWeekPreparationKit
     {
         static void Main(string[] args)
         {
-            TestTruckTour();
+            TestMergeLinkedList();
+        }
+        static void TestMergeLinkedList()
+        {
+
+            SinglyLinkedList list1 = new SinglyLinkedList();
+            list1.InsertNode(10);
+            list1.InsertNode(20);
+            list1.InsertNode(30);
+            list1.InsertNode(40);
+
+            SinglyLinkedList list2 = new SinglyLinkedList();
+            list2.InsertNode(15);
+            list2.InsertNode(25);
+            list2.InsertNode(35);
+            list2.InsertNode(45);
+
+            SinglyLinkedListNode node = SinglyList.mergeLists(list1.head, list2.head);
+
+            // StreamWriter streamWriter = new StreamWriter(Directory.GetCurrentDirectory() + "\\SinglyListOutput.txt");
+
+            SinglyList.PrintSinglyLinkedList(node, " ",Console.Out);
+
         }
         static void TestTruckTour()
         {
