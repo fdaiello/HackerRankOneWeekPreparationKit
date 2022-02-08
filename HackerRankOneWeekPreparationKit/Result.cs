@@ -8,6 +8,65 @@ namespace HackerRankOneWeekPreparationKit
 {
     class Result
     {
+
+        /*
+         *  List of petrol pumps
+         *     List with two elements
+         *       first - amount of fuel - each unit equals one unit of distance
+         *       second - distance up to next pump
+         */
+        public static int truckTour(List<List<int>> petrolpumps)
+        {
+
+            // Amount of fuel
+            int a;
+
+            // Distance to next pump
+            int d;
+
+            // Test All start points
+            for ( int startPoint =0; startPoint<petrolpumps.Count; startPoint++)
+            {
+                // Init current point with start point
+                int currentPoint = startPoint;
+                // Init counter of nodes
+                int c = 0;
+
+                // Init quantities
+                a = 0;
+
+                // Try to make the Loop
+                while ( c< petrolpumps.Count)
+                {
+                    // Get amount of fuel and distance to next node
+                    a += petrolpumps[currentPoint][0];
+                    d = petrolpumps[currentPoint][1];
+
+                    // Can we get there?
+                    a = a - d;
+
+                    if ( a<0)
+                    {
+                        break;
+                    }
+
+                    // Node counters
+                    c++;
+
+                    // Current Node counter
+                    currentPoint++;
+                    if (currentPoint == petrolpumps.Count)
+                        currentPoint = 0;
+                }
+
+                // Reached end?
+                if (c == petrolpumps.Count)
+                    return startPoint;
+            }
+
+            return -1;
+        }
+
         /*
          * https://www.hackerrank.com/challenges/one-week-preparation-kit-new-year-chaos/
          */
@@ -45,7 +104,6 @@ namespace HackerRankOneWeekPreparationKit
             } while (swapped);
 
             Console.WriteLine(bribes);
-
 
         }
         public static void minimumBribes0(List<int> q)

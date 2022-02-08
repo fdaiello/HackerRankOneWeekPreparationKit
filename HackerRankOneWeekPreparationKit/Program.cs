@@ -7,7 +7,21 @@ namespace HackerRankOneWeekPreparationKit
     {
         static void Main(string[] args)
         {
-            TestMinimumBribes();
+            TestTruckTour();
+        }
+        static void TestTruckTour()
+        {
+            List<List<int>> list = new()
+            {
+                new() { 2,2 },
+                new() { 2,2 },
+                new() { 2,4 },
+                new() { 4,2 }
+            };
+
+            Console.WriteLine(Result.truckTour(list));
+            Console.WriteLine("Expected: 3");
+
         }
         static void TestMinimumBribes()
         {
