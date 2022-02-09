@@ -9,6 +9,51 @@ namespace HackerRankOneWeekPreparationKit
     class Result
     {
         /*
+         * https://www.hackerrank.com/challenges/one-week-preparation-kit-tree-preorder-traversal
+         */
+        public class Node
+        {
+            public Node(int _data)
+            {
+                data = _data;
+            }
+            public int data;
+            public Node left;
+            public Node right;
+        }
+
+        public static void preOrder(Node root)
+        {
+            Console.WriteLine(root.data);
+            if (root.left != null)
+                preOrder(root.left);
+            if (root.right != null)
+                preOrder(root.right);
+        }
+
+        public static Node insert(Node root, int data)
+        {
+            if (root == null)
+            {
+                return new Node(data);
+            }
+            else
+            {
+                Node cur;
+                if (data <= root.data)
+                {
+                    cur = insert(root.left, data);
+                    root.left = cur;
+                }
+                else
+                {
+                    cur = insert(root.right, data);
+                    root.right = cur;
+                }
+                return root;
+            }
+        }
+        /*
          * https://www.hackerrank.com/test/3g7sntr46mr/questions/4rcfp2hh0ge
          * 
          *   n - number of nodes
