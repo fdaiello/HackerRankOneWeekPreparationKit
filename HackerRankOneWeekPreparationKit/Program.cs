@@ -8,7 +8,44 @@ namespace HackerRankOneWeekPreparationKit
     {
         static void Main(string[] args)
         {
-            TestBSF();
+            TestNoPrefix();
+        }
+        static void TestNoPrefixFile()
+        {
+
+            StreamReader sr = new StreamReader(Directory.GetCurrentDirectory() + "\\input41.txt");
+            int n = Convert.ToInt32(sr.ReadLine().Trim());
+
+            List<string> words = new List<string>();
+
+            for (int i = 0; i < n; i++)
+            {
+                string wordsItem = sr.ReadLine();
+                words.Add(wordsItem);
+            }
+
+            Result.noPrefix(words);
+        }
+        static void TestNoPrefix()
+        {
+            List<string> sl;
+
+            sl = new() { "ab", "a"};
+            Result.noPrefix(sl);
+            Console.WriteLine("Expected: BAD SET a");
+
+            sl = new() { "abcde", "fghi", "j", "hij" };
+            Result.noPrefix(sl);
+            Console.WriteLine("Expected: GOOD SET");
+
+            sl = new() { "abcde", "fghi", "fghij", "qerstu" };
+            Result.noPrefix(sl);
+            Console.WriteLine("Expected: BAD SET fghij");
+
+            sl = new() { "aab", "defgab", "abcde", "aabcde", "bbbbbbbbbb", "jabjjjad" };
+            Result.noPrefix(sl);
+            Console.WriteLine("Expected: BAD SET aabcde");
+
         }
         static void TestBSF()
         {

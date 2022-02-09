@@ -9,6 +9,55 @@ namespace HackerRankOneWeekPreparationKit
     class Result
     {
         /*
+         *   https://www.hackerrank.com/challenges/one-week-preparation-kit-no-prefix-set
+         */
+        public static void noPrefix(List<String> words)
+        {
+            // Trie Root node
+            TrieNode trie = new TrieNode();
+
+            // Traverse string list
+            foreach ( string word in words)
+            {
+                // Trie Node pointer
+                TrieNode node = trie;
+
+                // Traverse chars in word
+                foreach ( char c in word)
+                {
+                    if (node.Children[c-'a'] == null)
+                    {
+                        node.Children[c-'a'] = new TrieNode();
+                        node.HasChild = true;
+                    }
+
+                    node = node.Children[c-'a'];
+
+                    // Check for previus prefix word saved up to here
+                    if (node.End)
+                    {
+                        Console.WriteLine("BAD SET");
+                        Console.WriteLine(word);
+                        return;
+                    }
+
+                }
+
+                // Check for continuing word - this is a prefix
+                if (node.HasChild)
+                {
+                    Console.WriteLine("BAD SET");
+                    Console.WriteLine(word);
+                    return;
+                }
+
+                // Mark end of node
+                node.End = true;
+            }
+
+            Console.WriteLine("GOOD SET");
+        }
+        /*
          * https://www.hackerrank.com/challenges/one-week-preparation-kit-tree-preorder-traversal
          */
         public class Node
