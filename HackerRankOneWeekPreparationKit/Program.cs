@@ -8,7 +8,23 @@ namespace HackerRankOneWeekPreparationKit
     {
         static void Main(string[] args)
         {
-            TestMergeLinkedList();
+            TestBSF();
+        }
+        static void TestBSF()
+        {
+            List<List<int>> edges = new()
+            {
+                new() { 1, 2 },
+                new() { 1, 3 },
+                new() { 3, 4 }
+            };
+
+            int n = 5;
+            int m = 3;
+            int s = 1;
+
+            Console.WriteLine(String.Join(",", Result.bfs(n, m, edges, s)));
+            Console.WriteLine("Expected: 6, 6, 12, -1");
         }
         static void TestMergeLinkedList()
         {

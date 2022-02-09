@@ -8,7 +8,112 @@ namespace HackerRankOneWeekPreparationKit
 {
     class Result
     {
+        /*
+         * https://www.hackerrank.com/test/3g7sntr46mr/questions/4rcfp2hh0ge
+         */
+        public static List<int> bfs(int n, int m, List<List<int>> edges, int s)
+        {
+            // Graph Map of nodes
+            Dictionary<int, GraphNode> graph = new Dictionary<int, GraphNode>();
 
+            // Build Graph
+            foreach(List<int> edge in edges)
+            {
+                int node1Number = edge[0];
+                int node2Number = edge[1];
+
+                GraphNode node1;
+                if (graph.ContainsKey(node1Number))
+                {
+                    node1 = graph[node1Number];
+                }
+                else
+                {
+                    node1 = new GraphNode(node1Number);
+                }
+
+                GraphNode node2;
+                if (graph.ContainsKey(node2Number))
+                {
+                    node2 = graph[node2Number];
+                }
+                else
+                {
+                    node2 = new GraphNode(node2Number);
+                }
+
+                node1.AddEdge(node2);
+                node2.AddEdge(node1);
+
+                if (graph.ContainsKey(node1.Value))
+                {
+                    graph[node1.Value] = node1;
+                }
+                else
+                {
+                    graph.Add(node1.Value, node1);
+                }
+
+                if (graph.ContainsKey(node2.Value))
+                {
+                    graph[node2.Value] = node2;
+                }
+                else
+                {
+                    graph.Add(node2.Value, node2);
+                }
+            }
+
+
+            // Distance Map
+            SortedDictionary<int, int> dMap = new SortedDictionary<int, int>();
+            for ( int i = 1; i<=n; i++)
+            {
+                dMap.Add(i, -1);
+            }
+
+            // Traverse Graph from start node
+            int level = 0;
+            Queue<Tuple<int,int>> queue = new Queue<Tuple<int,int>>();
+            queue.Enqueue(new Tuple<int, int>(s, level));
+
+            while (queue.Any())
+            {
+                Tuple<int, int> tuple = queue.Dequeue();
+                GraphNode node = graph[tuple.Item1];
+                level = tuple.Item2;
+
+                // Check if not already already visited
+                if (dMap[tuple.Item1] ==-1)
+                {
+                    // Add distance to map
+                    dMap[tuple.Item1] = level;
+
+                    level++;
+
+                    foreach (GraphNode childNode in node.edges)
+                    {
+                        queue.Enqueue(new Tuple<int, int>(childNode.Value, level));
+                    }
+                }
+            }
+
+
+            // Create List based on Map
+            List<int> result = new List<int>();
+
+            foreach( KeyValuePair<int,int> kv in dMap)
+            {
+                if ( kv.Key != s)
+                {
+                    if (kv.Value > 0)
+                        result.Add(kv.Value * 6);
+                    else
+                        result.Add(-1);
+                }
+            }
+            return result;
+        }
         /*
          *  List of petrol pumps
          *     List with two elements
