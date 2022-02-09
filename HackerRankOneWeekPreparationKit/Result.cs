@@ -10,8 +10,87 @@ namespace HackerRankOneWeekPreparationKit
     {
         /*
          * https://www.hackerrank.com/test/3g7sntr46mr/questions/4rcfp2hh0ge
+         * 
+         *   n - number of nodes
+         *   m - number of edges
+         *   edges - list of pair of nodes representing one edge
+         *   s - starting point
+         *   
+         *   Return a list of nodes ( except start node ) with distance of each node to start node
+         *   Use Breadth First Search ( check all nodes of each level before moving to next level 
+         *   
          */
         public static List<int> bfs(int n, int m, List<List<int>> edges, int s)
+        {
+
+            // Build the graph representation with a square matrix
+            int[,] graph = new int[n+1, n+1];
+            foreach(List<int> edge in edges)
+            {
+                graph[edge[0], edge[1]] = 1;
+                graph[edge[1], edge[0]] = 1;
+            }
+
+            // Traverse the graph. Breadth First Serch requires a Queue
+            Queue<Tuple<int,int>> queue = new Queue<Tuple<int,int>>();
+            int level = 0;
+            queue.Enqueue(new Tuple<int, int>(s, level));
+            int node;
+
+            // List of visited nodes - to avoid Loops
+            List<int> visited = new List<int>();
+
+            // Map of distances from start
+            Dictionary<int, int> md = new Dictionary<int, int>();
+            for (int i =1; i<= n; i++)
+            {
+                md.Add(i, -1);
+            }
+
+            while ( queue.Any())
+            {
+                // Get next queued node
+                Tuple<int, int> tuple = queue.Dequeue();
+                node = tuple.Item1;
+                level = tuple.Item2;
+
+                // Save node and level
+                md[node] = level;
+                level++;
+
+                // Enqueue all child
+                for ( int i =1; i<=n; i++)
+                {
+                    if (graph[node, i] == 1 && ! visited.Contains(i))
+                    {
+                        // mark as visited
+                        visited.Add(i);
+                        // enqueue child
+                        queue.Enqueue(new Tuple<int, int>(i,level));
+                    }
+                }
+            }
+
+            // Build return list from map of distances
+            List<int> rl = new List<int>();
+            for ( int i =1; i <=n; i++)
+            {
+                if ( i != s)
+                {
+                    if (md[i] > 0)
+                        rl.Add(md[i] * 6);
+                    else
+                        rl.Add(-1);
+                }
+            }
+
+            return rl;
+        }
+        /*
+         * Representing a Graph with GraphNode Class
+         * Has some bug I could'n find
+         */
+        public static List<int> bfs1(int n, int m, List<List<int>> edges, int s)
         {
             // Graph Map of nodes
             Dictionary<int, GraphNode> graph = new Dictionary<int, GraphNode>();
@@ -80,6 +159,13 @@ namespace HackerRankOneWeekPreparationKit
             while (queue.Any())
             {
                 Tuple<int, int> tuple = queue.Dequeue();
+
+
+                if (!graph.ContainsKey(tuple.Item1))
+                {
+                    throw new IndexOutOfRangeException($"Graph does not contains key:{tuple.Item1}");
+                }
+
                 GraphNode node = graph[tuple.Item1];
                 level = tuple.Item2;
 
