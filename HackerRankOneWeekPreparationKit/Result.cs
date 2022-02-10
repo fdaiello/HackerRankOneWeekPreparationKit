@@ -8,6 +8,40 @@ namespace HackerRankOneWeekPreparationKit
 {
     class Result
     {
+        /*
+         *  https://www.hackerrank.com/test/ebch3feom7p/questions/g2lt30pl1g0
+         */
+        public static int pairs(int k, List<int> arr)
+        {
+            HashSet<int> map = new HashSet<int>();
+
+            int pair1;
+            int pair2;
+            int count=0;
+
+            // Traverse array
+            for (int i =0; i < arr.Count; i++)
+            {
+                // Insert each number in map
+                map.Add(arr[i]);
+
+                // What is the number we need?
+                pair1 = arr[i] + k;
+                pair2 = arr[i] - k;
+
+                // Have we seen it before?
+                if (map.Contains(pair1))
+                {
+                    count++;
+                }
+                if (map.Contains(pair2))
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
 
         /*
          *  List of petrol pumps

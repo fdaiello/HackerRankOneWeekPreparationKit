@@ -8,7 +8,33 @@ namespace HackerRankOneWeekPreparationKit
     {
         static void Main(string[] args)
         {
-            TestMergeLinkedList();
+            TestPairs();
+        }
+        static void TestPairs()
+        {
+            List<int> arr;
+            int k;
+
+            arr = new List<int> { 1, 2, 3, 4 };
+            k = 1;
+            Console.WriteLine(Result.pairs(k, arr));
+            Console.WriteLine("Expected: 3");
+
+            arr = new List<int> { 1, 5, 3, 4, 2 };
+            k = 2;
+            Console.WriteLine(Result.pairs(k, arr));
+            Console.WriteLine("Expected: 3");
+
+            arr = new List<int> { 1, 4, 7, 10 };
+            k = 2;
+            Console.WriteLine(Result.pairs(k, arr));
+            Console.WriteLine("Expected: 0");
+
+            arr = new List<int> { 1, 4, 7, 10 };
+            k = 3;
+            Console.WriteLine(Result.pairs(k, arr));
+            Console.WriteLine("Expected: 3");
+
         }
         static void TestMergeLinkedList()
         {
