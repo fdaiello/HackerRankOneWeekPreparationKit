@@ -9,6 +9,33 @@ namespace HackerRankOneWeekPreparationKit
     class Result
     {
         /*
+         *  https://www.hackerrank.com/challenges/one-week-preparation-kit-lego-blocks/
+         *  
+         *  Input: 
+         *         n - wall height
+         *         m - wall width
+         *         
+         *  OutPut
+         *         Number of possible combinations, multiplied by 10 exp 9 + 7
+         */
+        public static int legoBlocks(int n, int m)
+        {
+            // magic number we have to multiply before returning result
+            const float c =  10e9f + 7;
+
+            // Widht of lego blocks available - all heights equal 1. So we have theese blocks: 1x1 1x2 1x3 1x4
+            List<int> blocks = new List<int> { 1, 2, 3, 4 };
+
+            // Memo array for all sub width width, from 0 to m
+            int[] w = new int[m + 1];
+
+            // Initialize array. Position 0 keeps with 0. All other init with MinValue meaning no possibilites tested at all
+
+            // For all
+
+
+        }
+        /*
          *   https://www.hackerrank.com/challenges/one-week-preparation-kit-no-prefix-set
          */
         public static void noPrefix(List<String> words)

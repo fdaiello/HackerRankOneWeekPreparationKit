@@ -8,7 +8,14 @@ namespace HackerRankOneWeekPreparationKit
     {
         static void Main(string[] args)
         {
-            TestNoPrefix();
+
+        }
+        static void TestLegoBlocks()
+        {
+            int n = 2;
+            int m = 3;
+
+            Console.WriteLine(Result.legoBlocks(n, m));
         }
         static void TestNoPrefixFile()
         {
