@@ -9,40 +9,291 @@ namespace HackerRankOneWeekPreparationKit
     class Result
     {
         /*
-         *  https://www.hackerrank.com/test/ebch3feom7p/questions/g2lt30pl1g0
+         *   https://www.hackerrank.com/challenges/one-week-preparation-kit-no-prefix-set
          */
-        public static int pairs(int k, List<int> arr)
+        public static void noPrefix(List<String> words)
         {
-            HashSet<int> map = new HashSet<int>();
+            // Trie Root node
+            TrieNode trie = new TrieNode();
 
-            int pair1;
-            int pair2;
-            int count=0;
-
-            // Traverse array
-            for (int i =0; i < arr.Count; i++)
+            // Traverse string list
+            foreach ( string word in words)
             {
-                // Insert each number in map
-                map.Add(arr[i]);
+                // Trie Node pointer
+                TrieNode node = trie;
 
-                // What is the number we need?
-                pair1 = arr[i] + k;
-                pair2 = arr[i] - k;
-
-                // Have we seen it before?
-                if (map.Contains(pair1))
+                // Traverse chars in word
+                foreach ( char c in word)
                 {
-                    count++;
+                    if (node.Children[c-'a'] == null)
+                    {
+                        node.Children[c-'a'] = new TrieNode();
+                        node.HasChild = true;
+                    }
+
+                    node = node.Children[c-'a'];
+
+                    // Check for previus prefix word saved up to here
+                    if (node.End)
+                    {
+                        Console.WriteLine("BAD SET");
+                        Console.WriteLine(word);
+                        return;
+                    }
+
                 }
-                if (map.Contains(pair2))
+
+                // Check for continuing word - this is a prefix
+                if (node.HasChild)
                 {
-                    count++;
+                    Console.WriteLine("BAD SET");
+                    Console.WriteLine(word);
+                    return;
+                }
+
+                // Mark end of node
+                node.End = true;
+            }
+
+            Console.WriteLine("GOOD SET");
+        }
+        /*
+         * https://www.hackerrank.com/challenges/one-week-preparation-kit-tree-preorder-traversal
+         */
+        public class Node
+        {
+            public Node(int _data)
+            {
+                data = _data;
+            }
+            public int data;
+            public Node left;
+            public Node right;
+        }
+
+        public static void preOrder(Node root)
+        {
+            Console.WriteLine(root.data);
+            if (root.left != null)
+                preOrder(root.left);
+            if (root.right != null)
+                preOrder(root.right);
+        }
+
+        public static Node insert(Node root, int data)
+        {
+            if (root == null)
+            {
+                return new Node(data);
+            }
+            else
+            {
+                Node cur;
+                if (data <= root.data)
+                {
+                    cur = insert(root.left, data);
+                    root.left = cur;
+                }
+                else
+                {
+                    cur = insert(root.right, data);
+                    root.right = cur;
+                }
+                return root;
+            }
+        }
+        /*
+         * https://www.hackerrank.com/test/3g7sntr46mr/questions/4rcfp2hh0ge
+         * 
+         *   n - number of nodes
+         *   m - number of edges
+         *   edges - list of pair of nodes representing one edge
+         *   s - starting point
+         *   
+         *   Return a list of nodes ( except start node ) with distance of each node to start node
+         *   Use Breadth First Search ( check all nodes of each level before moving to next level 
+         *   
+         */
+        public static List<int> bfs(int n, int m, List<List<int>> edges, int s)
+        {
+
+            // Build the graph representation with a square matrix
+            int[,] graph = new int[n+1, n+1];
+            foreach(List<int> edge in edges)
+            {
+                graph[edge[0], edge[1]] = 1;
+                graph[edge[1], edge[0]] = 1;
+            }
+
+            // Traverse the graph. Breadth First Serch requires a Queue
+            Queue<Tuple<int,int>> queue = new Queue<Tuple<int,int>>();
+            int level = 0;
+            queue.Enqueue(new Tuple<int, int>(s, level));
+            int node;
+
+            // List of visited nodes - to avoid Loops
+            List<int> visited = new List<int>();
+
+            // Map of distances from start
+            Dictionary<int, int> md = new Dictionary<int, int>();
+            for (int i =1; i<= n; i++)
+            {
+                md.Add(i, -1);
+            }
+
+            while ( queue.Any())
+            {
+                // Get next queued node
+                Tuple<int, int> tuple = queue.Dequeue();
+                node = tuple.Item1;
+                level = tuple.Item2;
+
+                // Save node and level
+                md[node] = level;
+                level++;
+
+                // Enqueue all child
+                for ( int i =1; i<=n; i++)
+                {
+                    if (graph[node, i] == 1 && ! visited.Contains(i))
+                    {
+                        // mark as visited
+                        visited.Add(i);
+                        // enqueue child
+                        queue.Enqueue(new Tuple<int, int>(i,level));
+                    }
                 }
             }
 
-            return count;
-        }
+            // Build return list from map of distances
+            List<int> rl = new List<int>();
+            for ( int i =1; i <=n; i++)
+            {
+                if ( i != s)
+                {
+                    if (md[i] > 0)
+                        rl.Add(md[i] * 6);
+                    else
+                        rl.Add(-1);
+                }
+            }
 
+            return rl;
+        }
+        /*
+         * Representing a Graph with GraphNode Class
+         * Has some bug I could'n find
+         */
+        public static List<int> bfs1(int n, int m, List<List<int>> edges, int s)
+        {
+            // Graph Map of nodes
+            Dictionary<int, GraphNode> graph = new Dictionary<int, GraphNode>();
+
+            // Build Graph
+            foreach(List<int> edge in edges)
+            {
+                int node1Number = edge[0];
+                int node2Number = edge[1];
+
+                GraphNode node1;
+                if (graph.ContainsKey(node1Number))
+                {
+                    node1 = graph[node1Number];
+                }
+                else
+                {
+                    node1 = new GraphNode(node1Number);
+                }
+
+                GraphNode node2;
+                if (graph.ContainsKey(node2Number))
+                {
+                    node2 = graph[node2Number];
+                }
+                else
+                {
+                    node2 = new GraphNode(node2Number);
+                }
+
+                node1.AddEdge(node2);
+                node2.AddEdge(node1);
+
+                if (graph.ContainsKey(node1.Value))
+                {
+                    graph[node1.Value] = node1;
+                }
+                else
+                {
+                    graph.Add(node1.Value, node1);
+                }
+
+                if (graph.ContainsKey(node2.Value))
+                {
+                    graph[node2.Value] = node2;
+                }
+                else
+                {
+                    graph.Add(node2.Value, node2);
+                }
+            }
+
+
+            // Distance Map
+            SortedDictionary<int, int> dMap = new SortedDictionary<int, int>();
+            for ( int i = 1; i<=n; i++)
+            {
+                dMap.Add(i, -1);
+            }
+
+            // Traverse Graph from start node
+            int level = 0;
+            Queue<Tuple<int,int>> queue = new Queue<Tuple<int,int>>();
+            queue.Enqueue(new Tuple<int, int>(s, level));
+
+            while (queue.Any())
+            {
+                Tuple<int, int> tuple = queue.Dequeue();
+
+
+                if (!graph.ContainsKey(tuple.Item1))
+                {
+                    throw new IndexOutOfRangeException($"Graph does not contains key:{tuple.Item1}");
+                }
+
+                GraphNode node = graph[tuple.Item1];
+                level = tuple.Item2;
+
+                // Check if not already already visited
+                if (dMap[tuple.Item1] ==-1)
+                {
+                    // Add distance to map
+                    dMap[tuple.Item1] = level;
+
+                    level++;
+
+                    foreach (GraphNode childNode in node.edges)
+                    {
+                        queue.Enqueue(new Tuple<int, int>(childNode.Value, level));
+                    }
+                }
+            }
+
+
+            // Create List based on Map
+            List<int> result = new List<int>();
+
+            foreach( KeyValuePair<int,int> kv in dMap)
+            {
+                if ( kv.Key != s)
+                {
+                    if (kv.Value > 0)
+                        result.Add(kv.Value * 6);
+                    else
+                        result.Add(-1);
+                }
+            }
+            return result;
+        }
         /*
          *  List of petrol pumps
          *     List with two elements

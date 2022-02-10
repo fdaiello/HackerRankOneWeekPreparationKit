@@ -8,33 +8,60 @@ namespace HackerRankOneWeekPreparationKit
     {
         static void Main(string[] args)
         {
-            TestPairs();
+            TestNoPrefix();
         }
-        static void TestPairs()
+        static void TestNoPrefixFile()
         {
-            List<int> arr;
-            int k;
 
-            arr = new List<int> { 1, 2, 3, 4 };
-            k = 1;
-            Console.WriteLine(Result.pairs(k, arr));
-            Console.WriteLine("Expected: 3");
+            StreamReader sr = new StreamReader(Directory.GetCurrentDirectory() + "\\input41.txt");
+            int n = Convert.ToInt32(sr.ReadLine().Trim());
 
-            arr = new List<int> { 1, 5, 3, 4, 2 };
-            k = 2;
-            Console.WriteLine(Result.pairs(k, arr));
-            Console.WriteLine("Expected: 3");
+            List<string> words = new List<string>();
 
-            arr = new List<int> { 1, 4, 7, 10 };
-            k = 2;
-            Console.WriteLine(Result.pairs(k, arr));
-            Console.WriteLine("Expected: 0");
+            for (int i = 0; i < n; i++)
+            {
+                string wordsItem = sr.ReadLine();
+                words.Add(wordsItem);
+            }
 
-            arr = new List<int> { 1, 4, 7, 10 };
-            k = 3;
-            Console.WriteLine(Result.pairs(k, arr));
-            Console.WriteLine("Expected: 3");
+            Result.noPrefix(words);
+        }
+        static void TestNoPrefix()
+        {
+            List<string> sl;
 
+            sl = new() { "ab", "a"};
+            Result.noPrefix(sl);
+            Console.WriteLine("Expected: BAD SET a");
+
+            sl = new() { "abcde", "fghi", "j", "hij" };
+            Result.noPrefix(sl);
+            Console.WriteLine("Expected: GOOD SET");
+
+            sl = new() { "abcde", "fghi", "fghij", "qerstu" };
+            Result.noPrefix(sl);
+            Console.WriteLine("Expected: BAD SET fghij");
+
+            sl = new() { "aab", "defgab", "abcde", "aabcde", "bbbbbbbbbb", "jabjjjad" };
+            Result.noPrefix(sl);
+            Console.WriteLine("Expected: BAD SET aabcde");
+
+        }
+        static void TestBSF()
+        {
+            List<List<int>> edges = new()
+            {
+                new() { 1, 2 },
+                new() { 1, 3 },
+                new() { 3, 4 }
+            };
+
+            int n = 5;
+            int m = 3;
+            int s = 1;
+
+            Console.WriteLine(String.Join(",", Result.bfs(n, m, edges, s)));
+            Console.WriteLine("Expected: 6, 6, 12, -1");
         }
         static void TestMergeLinkedList()
         {
