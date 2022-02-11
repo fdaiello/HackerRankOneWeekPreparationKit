@@ -17,22 +17,59 @@ namespace HackerRankOneWeekPreparationKit
          *         
          *  OutPut
          *         Number of possible combinations, multiplied by 10 exp 9 + 7
+         *         
+         *  BUG!!!!!???????????????
          */
         public static int legoBlocks(int n, int m)
         {
             // magic number we have to multiply before returning result
-            const float c =  10e9f + 7;
+            const double mod =  10e9f + 7;
 
             // Widht of lego blocks available - all heights equal 1. So we have theese blocks: 1x1 1x2 1x3 1x4
             List<int> blocks = new List<int> { 1, 2, 3, 4 };
 
             // Memo array for all sub width width, from 0 to m
-            int[] w = new int[m + 1];
+            double[] f = new double[m + 1];
 
-            // Initialize array. Position 0 keeps with 0. All other init with MinValue meaning no possibilites tested at all
+            // Initialize array. Position 0 set to 1 ( one possibility of building for w =0 with 0 blocks ).
+            f[0] = 1;
 
-            // For all
+            // For all sub width
+            for ( int w = 0; w<=m; w++)
+            {
+                // For each block
+                foreach ( int block in blocks)
+                {
+                    // If block fits with, increase possibility array. Consider all possible ways already computed to sw-block -> w[sw-block]
+                    if ( block <= w)
+                    {
+                        f[w] += f[w - block];
+                    }
+                }
+            }
 
+            // Power height
+            double[] g = new double[m + 1];
+            for (int i = 1; i <= m; i++)
+                g[i] = Math.Pow(f[i], n);
+
+            // Now lets subtract invalid blocks
+            double[] h = new double[m + 1];
+            h[1] = 1;
+
+            // BUG!!!!!???????????????
+            for (int i = 2; i <= m; i++)
+            {
+                h[i] = g[i];
+                double tmp = 0;
+                for (int j = 1; j < i; j++)
+                    tmp += h[j] * g[i - j];
+                h[i] = h[i] - tmp;
+            }
+
+
+            // Return all possibilities
+            return (int)(h[m] % mod);
 
         }
         /*

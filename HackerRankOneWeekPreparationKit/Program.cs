@@ -8,14 +8,15 @@ namespace HackerRankOneWeekPreparationKit
     {
         static void Main(string[] args)
         {
-
+            TestLegoBlocks();
         }
         static void TestLegoBlocks()
         {
             int n = 2;
-            int m = 3;
+            int m = 2;
 
             Console.WriteLine(Result.legoBlocks(n, m));
+            Console.WriteLine("Expected: 7");
         }
         static void TestNoPrefixFile()
         {
